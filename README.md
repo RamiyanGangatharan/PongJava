@@ -26,3 +26,9 @@ It demonstrates how to manage graphics, handle input, and structure a basic game
 2. Compile the Java files using `javac`.
 3. Run the main class with `java GameScreen`.
 4. Enjoy Pong in its simplest, low-level Java form!  
+
+
+# TODO
+
+- Implement collisions for all objects
+- Implement physics for all moveable objects
