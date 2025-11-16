@@ -151,6 +151,7 @@ public class Pong {
         private static final int TARGET_FPS = 60;
 
         private final Paddle paddle;
+        private final Ball ball;
         private volatile boolean running = false;
 
         private boolean upPressed = false;
@@ -165,6 +166,7 @@ public class Pong {
             setSize(640, 480);
 
             paddle = new Paddle();
+            ball = new Ball();
 
             addKeyListener(this);
             setFocusable(true);
@@ -194,6 +196,7 @@ public class Pong {
 
             // ---- Draw game elements onto buffer ----
             paddle.draw(backG);
+            ball.draw(backG);
 
             // ---- Draw FPS onto buffer ----
             FPScounter.render(backG, getWidth());
@@ -256,5 +259,17 @@ public class Pong {
         }
 
         @Override public void keyTyped(KeyEvent e) {}
+
+        public static class Ball {
+            int x = 200;
+            int y = 50;
+            int width = 10;
+            int height = 10;
+
+            public void draw(Graphics g) {
+                g.setColor(Color.WHITE);
+                g.fillOval(x, y, width, height);
+            }
+        }
     }
 }
