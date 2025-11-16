@@ -59,6 +59,8 @@ public class Pong {
         }
     }
 
+    // -------------------------- MAIN MENU SCREEN -------------------------------------
+
     /**
      * This class is responsible for creating the main menu screen where it has code for GUI and functionality
      */
@@ -116,6 +118,34 @@ public class Pong {
         }
     }
 
+    // -------------------------- MAIN GAME SCREEN -------------------------------------
+
+    public static class FPScounter {
+        private static long lastTime = System.currentTimeMillis();
+        private static int frames = 0;
+        private static int fps = 0;
+
+        // Call at the start of each frame
+        public static void update() {
+            frames++;
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastTime >= 1000) { // 1 second elapsed
+                fps = frames;
+                frames = 0;
+                lastTime = currentTime;
+            }
+        }
+
+        // Call in your rendering method to draw FPS
+        public static void render(Graphics g, int screenWidth) {
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.BOLD, 10));
+            String fpsText = "FPS: " + fps;
+            int textWidth = g.getFontMetrics().stringWidth(fpsText);
+            g.drawString(fpsText, screenWidth - textWidth - 60, 80); // 60 px from right, 80 px from top
+        }
+    }
+
     public static class GameScreen extends Canvas implements Runnable, KeyListener {
 
         private static final int TARGET_FPS = 60;
@@ -162,8 +192,11 @@ public class Pong {
             backG.setColor(Color.BLACK);
             backG.fillRect(0, 0, getWidth(), getHeight());
 
-            // ---- Draw everything onto buffer ----
+            // ---- Draw game elements onto buffer ----
             paddle.draw(backG);
+
+            // ---- Draw FPS onto buffer ----
+            FPScounter.render(backG, getWidth());
 
             // ---- Draw buffer to screen ----
             g.drawImage(backBuffer, 0, 0, this);
@@ -175,6 +208,7 @@ public class Pong {
             while (running) {
                 updateGame();
                 repaint();
+                FPScounter.update();
 
                 try { Thread.sleep(1000 / TARGET_FPS); }
                 catch (InterruptedException e) { Thread.currentThread().interrupt(); }
