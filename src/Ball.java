@@ -40,14 +40,4 @@ public class Ball {
         PositionX += VelocityX;
         PositionY += VelocityY;
     }
-
-    public void checkCollision(int screenWidth, int screenHeight) {
-        if (PositionX - radius < 0 || PositionX + radius > screenWidth) {
-            VelocityX = -VelocityX; // Reverse X velocity
-        }
-        if (PositionY - radius < 0 || PositionY + radius > screenHeight) {
-            VelocityY = -VelocityY; // Reverse Y velocity
-        }
-    }
-
 }

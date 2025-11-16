@@ -76,7 +76,7 @@ public class GameScreen extends Canvas implements Runnable, KeyListener {
 
             FPScounter.update();
             ball.update();
-            ball.checkCollision(getWidth(), getHeight());
+            CollisionDetection.check(ball, Walls, Paddles);
             repaint();
 
             try { Thread.sleep(1000 / TARGET_FPS); }
