@@ -30,4 +30,5 @@ public class Window extends Frame {
     }
 
     public GameScreen getGameScreen() { return gameScreen; }
+    public MainMenuScreen getMainMenuScreen() { return new MainMenuScreen(this); }
 }

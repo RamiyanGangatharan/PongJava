@@ -23,7 +23,7 @@ public class MainMenuScreen extends Panel {
         subtitle.setFont(new Font(font, Font.BOLD, 12));
         subtitle.setBounds(170, 150, 300, 20);
 
-        Button play = new Button("Play");
+        Button play = new Button("Play Singleplayer");
         play.setFont(new Font(font, Font.BOLD, 20));
         play.setBackground(Color.WHITE);
         play.setForeground(Color.BLACK);

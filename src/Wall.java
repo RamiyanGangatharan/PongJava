@@ -6,6 +6,11 @@ public class Wall {
     private int WallWidth;
     private int WallHeight;
 
+    private boolean ignoreCollision;
+
+    public boolean isIgnoreCollision() { return ignoreCollision; }
+    public void setIgnoreCollision(boolean ignoreCollision) { this.ignoreCollision = ignoreCollision; }
+
     public int getPositionX() { return PositionX; }
     public int getPositionY() { return PositionY; }
     public int getWallWidth() { return WallWidth; }

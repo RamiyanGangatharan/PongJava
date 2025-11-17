@@ -31,6 +31,7 @@ public class CollisionDetection {
         // WALL COLLISIONS
         // -------------------------
         for (Wall wall : walls) {
+            if (wall.isIgnoreCollision()) continue;
             if (!isOverlap(
                     left, right,
                     top, bottom,

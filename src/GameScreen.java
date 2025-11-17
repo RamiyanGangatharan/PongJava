@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GameScreen extends Canvas implements Runnable, KeyListener {
+    private Window window;
 
     private static final int TARGET_FPS = 60;
 
@@ -20,13 +21,16 @@ public class GameScreen extends Canvas implements Runnable, KeyListener {
     private Graphics backG;
 
     public GameScreen(Window window) {
+        this.window = window;
         setBackground(Color.BLACK);
         setSize(window.getWidth(), window.getHeight());
 
         Wall leftWall = new Wall(5, 0, 10, getHeight() - 10);
-        Wall rightWall = new Wall(getWidth() - 15, 9, 10, getHeight() - 10);
+        Wall rightWall = new Wall(getWidth() - 15, 20, 10, getHeight() - 10);
         Wall topWall = new Wall(0, getHeight() - 450, getWidth(), 10);
-        Wall bottomWall = new Wall(0, getHeight() - 10, getWidth(), 10);
+        Wall bottomWall = new Wall(0, getHeight() - 4, getWidth(), 10);
+
+        leftWall.setIgnoreCollision(true);
 
         Walls.add(leftWall);
         Walls.add(rightWall);
@@ -36,7 +40,7 @@ public class GameScreen extends Canvas implements Runnable, KeyListener {
         paddle = new Paddle(20, 50, 10, 100, 5);
         Paddles.add(paddle);
 
-        ball = new Ball(getWidth() - 100, getHeight() - 30, 10, Color.WHITE, 3, 3);
+        ball = new Ball(getWidth() - 100, getHeight() - 30, 10, Color.WHITE, 8, 8);
 
         addKeyListener(this);
         setFocusable(true);
@@ -74,13 +78,21 @@ public class GameScreen extends Canvas implements Runnable, KeyListener {
             if (upPressed) paddle.moveUp();
             if (downPressed) paddle.moveDown(getHeight());
 
-            FPScounter.update();
-            ball.update();
-            CollisionDetection.check(ball, Walls, Paddles);
-            repaint();
+            if (ball.getPositionX() < 0) {
+                running = false;
+                window.setScreen(window.getMainMenuScreen());
+                window.getMainMenuScreen().requestFocus();
+                return;
+            }
+            else {
+                FPScounter.update();
+                ball.update();
+                CollisionDetection.check(ball, Walls, Paddles);
+                repaint();
 
-            try { Thread.sleep(1000 / TARGET_FPS); }
-            catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+                try { Thread.sleep(1000 / TARGET_FPS); }
+                catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+            }
         }
     }
 

@@ -8,6 +8,8 @@ public class Ball {
     private double VelocityY;
     private Color color;
 
+    private static final double GRAVITY = 0.15;
+
     public double getPositionX() { return PositionX; }
     public double getPositionY() { return PositionY; }
     public double getVelocityX() { return VelocityX; }
@@ -37,6 +39,7 @@ public class Ball {
     }
 
     public void update() {
+        VelocityY += GRAVITY;
         PositionX += VelocityX;
         PositionY += VelocityY;
     }
